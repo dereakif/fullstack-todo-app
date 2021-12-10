@@ -1,5 +1,12 @@
 export type TodoInput = {
-  title: String;
-  description: String;
-  isCompleted: Boolean;
+  title: string;
+  description: string;
+  isCompleted: boolean;
+};
+
+export type Todo = {
+  _id: string;
+  title: string;
+  description: string;
+  isCompleted: boolean;
 };
