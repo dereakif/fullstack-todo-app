@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import { TodoInput } from "./interfaces/todo.interfaces";
+import { Todo } from "./interfaces/todo.interfaces";
 
 function App() {
-  const [todos, setTodos] = useState<TodoInput[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   return (
     <div className="App">
       <TodoForm todos={todos} setTodos={setTodos} />

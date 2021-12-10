@@ -5,11 +5,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { TodoInput } from "../../interfaces/todo.interfaces";
+import { Todo, TodoInput } from "../../interfaces/todo.interfaces";
 
 interface Props {
-  todos: TodoInput[];
-  setTodos: React.Dispatch<SetStateAction<TodoInput[]>>;
+  todos: Todo[];
+  setTodos: React.Dispatch<SetStateAction<Todo[]>>;
 }
 
 const initialTodoInput = {
