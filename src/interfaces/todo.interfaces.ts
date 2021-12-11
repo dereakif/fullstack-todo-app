@@ -10,3 +10,7 @@ export type Todo = {
   description: string;
   isCompleted: boolean;
 };
+
+export type isError = {
+  isError: string;
+};
