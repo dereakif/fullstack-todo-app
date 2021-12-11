@@ -22,4 +22,10 @@ router.put("/api/todo", async (req: Request, res: Response) => {
   return res.status(201).send(todo);
 });
 
+router.delete("/api/todo", async (req: Request, res: Response) => {
+  const { _id } = req.body;
+  const result = await Todo.deleteOne({ _id });
+  return res.status(201).send(result);
+});
+
 export { router as todoRouter };
