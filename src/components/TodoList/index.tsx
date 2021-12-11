@@ -9,27 +9,22 @@ interface Props {
 
 const TodoList = (props: Props) => {
   const { todos, setTodos } = props;
-  const getTodos = async (): Promise<void> => {
-    try {
-      const response = await axios.get("http://localhost:3001/api/todo");
-      if (response.status === 200) {
-        setTodos(response.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
-    getTodos();
+    axios.get("http://localhost:3001/api/todo").then((res) => {
+      const { data } = res;
+      if (data) {
+        setTodos(data);
+      }
+    });
   }, []);
 
-  if (todos.length === 0) {
+  if (todos?.length === 0) {
     return <div>There is no list to display...</div>;
   }
   return (
     <div>
-      {todos.map((todo) => (
+      {todos?.map((todo) => (
         <div key={todo._id}>
           <p style={{ fontWeight: "bold" }}>{todo.title}</p>
           <p>{todo.description}</p>
