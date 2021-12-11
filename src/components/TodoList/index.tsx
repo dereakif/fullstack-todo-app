@@ -42,6 +42,22 @@ const TodoList = (props: Props) => {
     setSelectedTodo(todos[index]);
   };
 
+  const deleteTodo = (todoId: string) => {
+    const index = todos.findIndex((todo) => todo._id === todoId);
+    if (index === -1) {
+      return;
+    }
+    axios
+      .delete("http://localhost:3001/api/todo", { data: { _id: todoId } })
+      .then((res) => {
+        const { data } = res;
+        if (data.deletedCount) {
+          const newTodos = todos.filter((todo) => todo._id !== todoId);
+          setTodos(newTodos);
+        }
+      });
+  };
+
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = event.target;
     setSelectedTodo((prev) => ({ ...prev, [name]: value }));
@@ -86,7 +102,7 @@ const TodoList = (props: Props) => {
             handleSubmitEdit={handleTodoEdit}
           />
         ) : (
-          <div key={todo._id}>
+          <div style={{ display: "flex" }} key={todo._id}>
             <div
               style={{
                 display: "flex",
@@ -109,11 +125,19 @@ const TodoList = (props: Props) => {
               >
                 {todo.description}
               </p>
+            </div>
+            <div style={{ display: "flex" }}>
               <button
                 style={{ marginLeft: "1rem" }}
                 onClick={() => selectTodo(todo._id)}
               >
                 edit
+              </button>
+              <button
+                style={{ marginLeft: "1rem" }}
+                onClick={() => deleteTodo(todo._id)}
+              >
+                delete
               </button>
             </div>
           </div>
