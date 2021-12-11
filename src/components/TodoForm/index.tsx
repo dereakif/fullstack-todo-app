@@ -1,11 +1,7 @@
 import axios from "axios";
-import React, {
-  ChangeEvent,
-  SetStateAction,
-  SyntheticEvent,
-  useState,
-} from "react";
-import { Todo, TodoInput } from "../../interfaces/todo.interfaces";
+import React, { ChangeEvent, FormEvent, SetStateAction, useState } from "react";
+import { isError, Todo, TodoInput } from "../../interfaces/todo.interfaces";
+import InputForm from "./InputForm";
 
 interface Props {
   todos: Todo[];
@@ -31,46 +27,31 @@ const TodoForm = (props: Props) => {
     setInput((prev) => ({ ...prev, isCompleted: checked }));
   };
 
-  const handleSubmit = (e: SyntheticEvent): void => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): isError => {
     e.preventDefault();
     const trimmiedTitle: string = input.title.trim();
     const trimmiedDescription: string = input.description.trim();
     if (!trimmiedTitle || !trimmiedDescription) {
-      return;
+      return { isError: "invalidInput" };
     }
     axios.post<Todo>("http://localhost:3001/api/todo", input).then((res) => {
       const { data } = res;
       if (data) {
         setTodos((prev) => [...prev, data]);
         setInput(initialTodoInput);
+        return { isError: "" };
       }
     });
+    return { isError: "noData" };
   };
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="todo title"
-          name="title"
-          type="text"
-          value={input.title}
-          onChange={handleOnChange}
-        />
-        <input
-          placeholder="todo description"
-          name="description"
-          type="text"
-          value={input.description}
-          onChange={handleOnChange}
-        />
-        <input
-          name="isCompleted"
-          type="checkbox"
-          checked={input.isCompleted}
-          onChange={handleCheckBox}
-        />
-        <button type="submit">submit</button>
-      </form>
+      <InputForm
+        input={input}
+        handleSubmitCreate={handleSubmit}
+        handleOnChange={handleOnChange}
+        handleCheckBox={handleCheckBox}
+      />
     </div>
   );
 };
