@@ -1,8 +1,8 @@
+import axios from "axios";
 import React, {
   ChangeEvent,
-  Dispatch,
   SetStateAction,
-  useEffect,
+  SyntheticEvent,
   useState,
 } from "react";
 import { Todo, TodoInput } from "../../interfaces/todo.interfaces";
@@ -31,9 +31,23 @@ const TodoForm = (props: Props) => {
     setInput((prev) => ({ ...prev, isCompleted: checked }));
   };
 
+  const handleSubmit = (e: SyntheticEvent): void => {
+    e.preventDefault();
+    const trimmiedTitle: string = input.title.trim();
+    const trimmiedDescription: string = input.description.trim();
+    if (!trimmiedTitle || !trimmiedDescription) {
+      return;
+    }
+    axios.post<Todo>("http://localhost:3001/api/todo", input).then((res) => {
+      const { data } = res;
+      if (data) {
+        setTodos((prev) => [...prev, data]);
+      }
+    });
+  };
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           placeholder="todo title"
           name="title"
