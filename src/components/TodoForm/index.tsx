@@ -42,6 +42,7 @@ const TodoForm = (props: Props) => {
       const { data } = res;
       if (data) {
         setTodos((prev) => [...prev, data]);
+        setInput(initialTodoInput);
       }
     });
   };
@@ -52,15 +53,22 @@ const TodoForm = (props: Props) => {
           placeholder="todo title"
           name="title"
           type="text"
+          value={input.title}
           onChange={handleOnChange}
         />
         <input
           placeholder="todo description"
           name="description"
           type="text"
+          value={input.description}
           onChange={handleOnChange}
         />
-        <input name="isCompleted" type="checkbox" onChange={handleCheckBox} />
+        <input
+          name="isCompleted"
+          type="checkbox"
+          checked={input.isCompleted}
+          onChange={handleCheckBox}
+        />
         <button type="submit">submit</button>
       </form>
     </div>
