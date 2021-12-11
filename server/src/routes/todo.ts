@@ -15,4 +15,11 @@ router.post("/api/todo", async (req: Request, res: Response) => {
   return res.status(201).send(todo);
 });
 
+router.put("/api/todo", async (req: Request, res: Response) => {
+  const { title, description, isCompleted, _id } = req.body;
+  await Todo.updateOne({ _id }, { $set: { title, description, isCompleted } });
+  const todo = await Todo.findOne({ _id });
+  return res.status(201).send(todo);
+});
+
 export { router as todoRouter };
