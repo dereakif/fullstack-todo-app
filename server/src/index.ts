@@ -1,11 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import { json } from "body-parser";
 import { todoRouter } from "./routes/todo";
 
 const app = express();
 
 app.use(json());
+app.use(cors());
 app.use(todoRouter);
 
 mongoose.connect("mongodb://localhost:27017/todo", () => {
