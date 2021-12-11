@@ -58,20 +58,16 @@ const TodoList = (props: Props) => {
     if (!trimmiedTitle || !trimmiedDescription) {
       return { isError: "invalidInput" };
     }
-    axios
-      .put<Todo>("http://localhost:3001/api/todo", selectedTodo)
-      .then((res) => {
-        console.log({ res });
-        const { data } = res;
-        if (data) {
-          const newTodos = [...todos];
-          newTodos[selectedIndex] = data;
-          setTodos(newTodos);
-          setSelectedTodo(initialTodoInput);
-          console.log({ newTodos });
-          return { isError: "" };
-        }
-      });
+    axios.put("http://localhost:3001/api/todo", selectedTodo).then((res) => {
+      const { data } = res;
+      if (data) {
+        const newTodos = [...todos];
+        newTodos[selectedIndex] = data;
+        setTodos(newTodos);
+        setSelectedTodo(initialTodoInput);
+        return { isError: "" };
+      }
+    });
     return { isError: "noData" };
   };
 
@@ -79,7 +75,7 @@ const TodoList = (props: Props) => {
     return <div>There is no list to display...</div>;
   }
   return (
-    <div>
+    <div style={{ marginTop: "2rem" }}>
       {todos?.map((todo) =>
         todo._id === selectedTodo?._id ? (
           <InputForm
@@ -91,9 +87,35 @@ const TodoList = (props: Props) => {
           />
         ) : (
           <div key={todo._id}>
-            <p style={{ fontWeight: "bold" }}>{todo.title}</p>
-            <p>{todo.description}</p>
-            <button onClick={() => selectTodo(todo._id)}>edit</button>
+            <div
+              style={{
+                display: "flex",
+                textDecorationLine: todo.isCompleted ? "line-through" : "none",
+              }}
+            >
+              <p
+                style={{
+                  marginBottom: "0px",
+                  fontWeight: "bold",
+                }}
+              >
+                {todo.title}
+              </p>
+              <p
+                style={{
+                  marginLeft: "1rem",
+                  marginBottom: "0px",
+                }}
+              >
+                {todo.description}
+              </p>
+              <button
+                style={{ marginLeft: "1rem" }}
+                onClick={() => selectTodo(todo._id)}
+              >
+                edit
+              </button>
+            </div>
           </div>
         )
       )}
