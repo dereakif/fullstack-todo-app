@@ -13,10 +13,10 @@ function App() {
     <div className="App">
       <Container>
         <Row>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6} lg={4}>
             <TodoForm todos={todos} setTodos={setTodos} />
           </Col>
-          <Col xs={12} md={6}>
+          <Col sm={12} md={6} lg={8}>
             <TodoList todos={todos} setTodos={setTodos} />
           </Col>
         </Row>
