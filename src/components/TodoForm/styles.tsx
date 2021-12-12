@@ -1,7 +1,12 @@
+import { DetailedHTMLProps } from "react";
 import { Form } from "react-bootstrap";
 import styled, { css } from "styled-components";
 
-export const StyledButton = styled.button`
+interface SCProps {
+  primary?: boolean;
+}
+
+export const StyledButton = styled.button<SCProps>`
   background: transparent;
   border-radius: 3px;
   border: 2px solid palevioletred;
