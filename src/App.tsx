@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Col from "react-bootstrap/esm/Col";
+import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
@@ -10,14 +11,16 @@ function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   return (
     <div className="App">
-      <Row>
-        <Col xs={12} md={6}>
-          <TodoForm todos={todos} setTodos={setTodos} />
-        </Col>
-        <Col xs={12} md={6}>
-          <TodoList todos={todos} setTodos={setTodos} />
-        </Col>
-      </Row>
+      <Container>
+        <Row>
+          <Col xs={12} md={6}>
+            <TodoForm todos={todos} setTodos={setTodos} />
+          </Col>
+          <Col xs={12} md={6}>
+            <TodoList todos={todos} setTodos={setTodos} />
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
