@@ -1,3 +1,4 @@
+import { Form } from "react-bootstrap";
 import styled, { css } from "styled-components";
 
 export const StyledButton = styled.button`
@@ -7,6 +8,8 @@ export const StyledButton = styled.button`
   color: palevioletred;
   margin: 0 1em;
   padding: 0.25em 1em;
+  width: fit-content;
+
   :hover {
     cursor: pointer;
   }
@@ -38,4 +41,20 @@ export const StyledTextArea = styled.textarea`
   :focus {
     outline: 0;
   }
+`;
+
+export const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  #description {
+    max-height: 200px;
+  }
+  #isCompleted {
+    display: flex;
+  }
+`;
+
+export const StyledSubmitContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
 `;
