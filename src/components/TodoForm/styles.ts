@@ -1,16 +1,17 @@
-import { DetailedHTMLProps } from "react";
 import { Form } from "react-bootstrap";
 import styled, { css } from "styled-components";
 
 interface SCProps {
   primary?: boolean;
+  isCompleted?: boolean;
+  index?: number;
 }
 
 export const StyledButton = styled.button<SCProps>`
   background: transparent;
   border-radius: 3px;
-  border: 2px solid palevioletred;
-  color: palevioletred;
+  border: 2px solid #7093db;
+  color: #7093db;
   margin: 0 1em;
   padding: 0.25em 1em;
   width: fit-content;
@@ -48,18 +49,47 @@ export const StyledTextArea = styled.textarea`
   }
 `;
 
-export const StyledForm = styled(Form)`
+export const StyledForm = styled(Form)<SCProps>`
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+  ${(props) =>
+    props.index === 0 &&
+    css`
+      margin-bottom: 1rem;
+    `};
+  border: 1px solid #7093db;
+  border-radius: 0.25rem;
   #description {
     max-height: 200px;
   }
   #isCompleted {
     display: flex;
   }
+  > div {
+    > input,
+    textarea {
+      border-color: #7093db;
+    }
+    > label.form-label {
+      color: #7093db;
+      font-weight: 699;
+    }
+  }
 `;
 
-export const StyledSubmitContainer = styled.div`
+export const StyledSubmitContainer = styled.div<SCProps>`
   display: flex;
   justify-content: space-around;
+  input[type="checkbox"] {
+    border-color: #7093db;
+  }
+  ${(props) =>
+    props.isCompleted &&
+    css`
+      input:checked {
+        background-color: palevioletred;
+        border-color: palevioletred;
+      }
+    `};
 `;
