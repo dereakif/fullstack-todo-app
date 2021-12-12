@@ -1,6 +1,11 @@
 import axios from "axios";
 import React, { ChangeEvent, FormEvent, SetStateAction, useState } from "react";
-import { isError, Todo, TodoInput } from "../../interfaces/todo.interfaces";
+import {
+  isError,
+  onChangeFunction,
+  Todo,
+  TodoInput,
+} from "../../interfaces/todo.interfaces";
 import InputForm from "./InputForm";
 
 interface Props {
@@ -17,12 +22,13 @@ const TodoForm = (props: Props) => {
   const { todos, setTodos } = props;
   const [input, setInput] = useState<TodoInput>(initialTodoInput);
 
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleOnChange: onChangeFunction = (event) => {
     const { value, name } = event.target;
+    if (!name) return;
     setInput((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckBox = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleCheckBox: onChangeFunction = (event) => {
     const { checked } = event.target;
     setInput((prev) => ({ ...prev, isCompleted: checked }));
   };
