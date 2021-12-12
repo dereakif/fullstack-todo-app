@@ -1,3 +1,5 @@
+import { ChangeEvent, FormEvent } from "react";
+
 export type TodoInput = {
   title: string;
   description: string;
@@ -14,3 +16,7 @@ export type Todo = {
 export type isError = {
   isError: string;
 };
+
+export type onChangeFunction = (event: ChangeEvent<HTMLInputElement>) => void;
+
+export type onSubmitFunction = (event: FormEvent<HTMLFormElement>) => isError;
