@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent } from "react";
 import { isError, Todo, TodoInput } from "../../interfaces/todo.interfaces";
+import { StyledButton, StyledInput, StyledTextArea } from "./styles";
 
 interface Props {
   handleOnChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -20,14 +21,14 @@ const InputForm = (props: Props) => {
 
   return (
     <form onSubmit={handleSubmitEdit || handleSubmitCreate}>
-      <input
+      <StyledInput
         placeholder="todo title"
         name="title"
         type="text"
         value={input.title}
         onChange={handleOnChange}
       />
-      <input
+      <StyledTextArea
         placeholder="todo description"
         name="description"
         type="text"
@@ -40,7 +41,9 @@ const InputForm = (props: Props) => {
         checked={input.isCompleted}
         onChange={handleCheckBox}
       />
-      <button type="submit">{handleSubmitEdit ? "edit" : "submit"}</button>
+      <StyledButton type="submit">
+        {handleSubmitEdit ? "done" : "submit"}
+      </StyledButton>
     </form>
   );
 };
