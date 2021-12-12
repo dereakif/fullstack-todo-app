@@ -1,12 +1,12 @@
+import React, { SetStateAction, useEffect, useState } from "react";
 import axios from "axios";
-import React, {
-  ChangeEvent,
-  FormEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
-import { isError, Todo } from "../../interfaces/todo.interfaces";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  onChangeFunction,
+  onSubmitFunction,
+  Todo,
+} from "../../interfaces/todo.interfaces";
 import InputForm from "../TodoForm/InputForm";
 
 interface Props {
@@ -58,16 +58,17 @@ const TodoList = (props: Props) => {
       });
   };
 
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const { value, name } = event.target;
+  const handleOnChange: onChangeFunction = (event) => {
+    const { value, name } = event.currentTarget;
+    if (!name) return;
     setSelectedTodo((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckBox = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleCheckBox: onChangeFunction = (event) => {
     const { checked } = event.target;
     setSelectedTodo((prev) => ({ ...prev, isCompleted: checked }));
   };
-  const handleTodoEdit = (event: FormEvent<HTMLFormElement>): isError => {
+  const handleTodoEdit: onSubmitFunction = (event) => {
     event.preventDefault();
     const trimmiedTitle: string = selectedTodo.title.trim();
     const trimmiedDescription: string = selectedTodo.description.trim();
@@ -127,18 +128,16 @@ const TodoList = (props: Props) => {
               </p>
             </div>
             <div style={{ display: "flex" }}>
-              <button
+              <FontAwesomeIcon
                 style={{ marginLeft: "1rem" }}
+                icon={faEdit}
                 onClick={() => selectTodo(todo._id)}
-              >
-                edit
-              </button>
-              <button
+              />
+              <FontAwesomeIcon
                 style={{ marginLeft: "1rem" }}
+                icon={faTrashAlt}
                 onClick={() => deleteTodo(todo._id)}
-              >
-                delete
-              </button>
+              />
             </div>
           </div>
         )
