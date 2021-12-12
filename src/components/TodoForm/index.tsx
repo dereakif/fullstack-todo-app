@@ -45,14 +45,12 @@ const TodoForm = (props: Props) => {
     return { isError: "noData" };
   };
   return (
-    <div>
-      <InputForm
-        input={input}
-        handleSubmitCreate={handleSubmit}
-        handleOnChange={handleOnChange}
-        handleCheckBox={handleCheckBox}
-      />
-    </div>
+    <InputForm
+      input={input}
+      handleSubmitCreate={handleSubmit}
+      handleOnChange={handleOnChange}
+      handleCheckBox={handleCheckBox}
+    />
   );
 };
 
