@@ -1,4 +1,3 @@
-import React, { ChangeEvent, FormEvent } from "react";
 import {
   onChangeFunction,
   onSubmitFunction,
@@ -13,6 +12,7 @@ interface Props {
   input: TodoInput | Todo;
   handleSubmitCreate?: onSubmitFunction;
   handleSubmitEdit?: onSubmitFunction;
+  index?: number;
 }
 
 const InputForm = (props: Props) => {
@@ -22,10 +22,11 @@ const InputForm = (props: Props) => {
     input,
     handleSubmitCreate,
     handleSubmitEdit,
+    index,
   } = props;
 
   return (
-    <StyledForm onSubmit={handleSubmitEdit || handleSubmitCreate}>
+    <StyledForm index={index} onSubmit={handleSubmitEdit || handleSubmitCreate}>
       <StyledForm.Group className="mb-3" controlId="title">
         <StyledForm.Label>Todo Title</StyledForm.Label>
         <StyledForm.Control
@@ -50,7 +51,7 @@ const InputForm = (props: Props) => {
       </StyledForm.Group>
 
       <StyledForm.Group className="mb-3" controlId="isCompleted">
-        <StyledSubmitContainer>
+        <StyledSubmitContainer isCompleted={input.isCompleted}>
           <StyledForm.Check
             checked={input.isCompleted}
             onChange={handleCheckBox}
@@ -60,7 +61,7 @@ const InputForm = (props: Props) => {
           />
 
           <StyledButton type="submit">
-            {handleSubmitEdit ? "done" : "submit"}
+            {handleSubmitEdit ? "Done" : "Submit"}
           </StyledButton>
         </StyledSubmitContainer>
       </StyledForm.Group>
