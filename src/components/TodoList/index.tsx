@@ -8,6 +8,9 @@ import {
   Todo,
 } from "../../interfaces/todo.interfaces";
 import InputForm from "../TodoForm/InputForm";
+import { StyledTodoList, TitleContainer, TodoContainer } from "./styles";
+import Row from "react-bootstrap/esm/Row";
+import Col from "react-bootstrap/esm/Col";
 
 interface Props {
   todos: Todo[];
@@ -92,10 +95,11 @@ const TodoList = (props: Props) => {
     return <div>There is no list to display...</div>;
   }
   return (
-    <div style={{ marginTop: "2rem" }}>
-      {todos?.map((todo) =>
+    <StyledTodoList>
+      {todos?.map((todo, index) =>
         todo._id === selectedTodo?._id ? (
           <InputForm
+            index={index}
             key={"editing" + todo._id}
             input={selectedTodo}
             handleCheckBox={handleCheckBox}
@@ -103,46 +107,39 @@ const TodoList = (props: Props) => {
             handleSubmitEdit={handleTodoEdit}
           />
         ) : (
-          <div style={{ display: "flex" }} key={todo._id}>
-            <div
+          <TodoContainer key={todo._id}>
+            <TitleContainer
               style={{
-                display: "flex",
                 textDecorationLine: todo.isCompleted ? "line-through" : "none",
               }}
             >
-              <p
-                style={{
-                  marginBottom: "0px",
-                  fontWeight: "bold",
-                }}
-              >
-                {todo.title}
-              </p>
-              <p
-                style={{
-                  marginLeft: "1rem",
-                  marginBottom: "0px",
-                }}
-              >
-                {todo.description}
-              </p>
-            </div>
-            <div style={{ display: "flex" }}>
-              <FontAwesomeIcon
-                style={{ marginLeft: "1rem" }}
-                icon={faEdit}
-                onClick={() => selectTodo(todo._id)}
-              />
-              <FontAwesomeIcon
-                style={{ marginLeft: "1rem" }}
-                icon={faTrashAlt}
-                onClick={() => deleteTodo(todo._id)}
-              />
-            </div>
-          </div>
+              <Row>
+                <Col xs={11}>
+                  <>{todo.title}</>
+                </Col>
+                <Col xs={1}>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    onClick={() => selectTodo(todo._id)}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={11}>
+                  <p>{todo.description}</p>
+                </Col>
+                <Col xs={1}>
+                  <FontAwesomeIcon
+                    icon={faTrashAlt}
+                    onClick={() => deleteTodo(todo._id)}
+                  />
+                </Col>
+              </Row>
+            </TitleContainer>
+          </TodoContainer>
         )
       )}
-    </div>
+    </StyledTodoList>
   );
 };
 
