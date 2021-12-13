@@ -50,7 +50,7 @@ const InputForm = (props: Props) => {
         />
       </StyledForm.Group>
 
-      <StyledForm.Group className="mb-3" controlId="isCompleted">
+      <StyledForm.Group className="mb-3 mt-3" controlId="isCompleted">
         <StyledSubmitContainer isCompleted={input.isCompleted}>
           <StyledForm.Check
             checked={input.isCompleted}
