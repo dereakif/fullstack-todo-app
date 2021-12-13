@@ -10,8 +10,8 @@ interface SCProps {
 export const StyledButton = styled.button<SCProps>`
   background: transparent;
   border-radius: 3px;
-  border: 2px solid #7093db;
-  color: #7093db;
+  border: 2px solid whitesmoke;
+  color: whitesmoke;
   margin: 0 1em;
   padding: 0.25em 1em;
   width: fit-content;
@@ -53,12 +53,12 @@ export const StyledForm = styled(Form)<SCProps>`
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  background-color: rgb(55, 59, 98);
   ${(props) =>
     props.index === 0 &&
     css`
       margin-bottom: 1rem;
     `};
-  border: 1px solid #7093db;
   border-radius: 0.25rem;
   #description {
     max-height: 200px;
@@ -69,11 +69,11 @@ export const StyledForm = styled(Form)<SCProps>`
   > div {
     > input,
     textarea {
-      border-color: #7093db;
+      background-color: #f8f9fa;
     }
     > label.form-label {
-      color: #7093db;
-      font-weight: 699;
+      color: whitesmoke;
+      font-weight: 600;
     }
   }
 `;
@@ -82,7 +82,10 @@ export const StyledSubmitContainer = styled.div<SCProps>`
   display: flex;
   justify-content: space-around;
   input[type="checkbox"] {
-    border-color: #7093db;
+    border-color: whitesmoke;
+  }
+  > div.form-check > label {
+    color: whitesmoke;
   }
   ${(props) =>
     props.isCompleted &&
@@ -92,4 +95,14 @@ export const StyledSubmitContainer = styled.div<SCProps>`
         border-color: palevioletred;
       }
     `};
+`;
+
+export const ListStats = styled.p`
+  padding: 1rem;
+  font-style: italic;
+  color: whitesmoke;
+  text-align: center;
+  div.row:last-of-type {
+    margin-top: 0.5rem;
+  }
 `;
