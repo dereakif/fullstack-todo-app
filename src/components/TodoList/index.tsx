@@ -115,7 +115,7 @@ const TodoList = (props: Props) => {
             >
               <Row>
                 <Col xs={11}>
-                  <>{todo.title}</>
+                  <p className="title">{todo.title}</p>
                 </Col>
                 <Col xs={1}>
                   <FontAwesomeIcon
@@ -126,7 +126,7 @@ const TodoList = (props: Props) => {
               </Row>
               <Row>
                 <Col xs={11}>
-                  <p>{todo.description}</p>
+                  <p className="description">{todo.description}</p>
                 </Col>
                 <Col xs={1}>
                   <FontAwesomeIcon
