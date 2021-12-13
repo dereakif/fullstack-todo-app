@@ -19,6 +19,10 @@ export const StyledButton = styled.button<SCProps>`
   :hover {
     cursor: pointer;
   }
+  :active {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  }
   ${(props) =>
     props.primary &&
     css`
@@ -76,6 +80,7 @@ export const StyledForm = styled(Form)<SCProps>`
       font-weight: 600;
     }
   }
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 `;
 
 export const StyledSubmitContainer = styled.div<SCProps>`
@@ -105,4 +110,7 @@ export const ListStats = styled.p`
   div.row:last-of-type {
     margin-top: 0.5rem;
   }
+  border: 1px solid silver;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
 `;
