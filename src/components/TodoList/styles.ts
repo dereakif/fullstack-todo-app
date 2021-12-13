@@ -13,16 +13,28 @@ export const StyledTodoList = styled.div`
 
 export const TitleContainer = styled(Col)`
   padding: 0 1rem;
-  border: 1px solid #7093db;
+  background-color: rgb(55, 59, 98);
   border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   width: 100%;
+  color: whitesmoke;
   p {
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 0;
+  }
+  > div.row > div.col-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      font-size: 1.3rem;
+    }
+  }
+  > div.row:first-of-type {
+    margin-bottom: 1rem;
   }
 `;
 
@@ -31,6 +43,6 @@ export const TodoContainer = styled(Row)`
   justify-content: space-between;
   margin: 1.2rem 0;
   > div.col {
-    padding: 0.5rem 1rem;
+    padding: 1rem 1.5rem;
   }
 `;
