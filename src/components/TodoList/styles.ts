@@ -25,16 +25,29 @@ export const TitleContainer = styled(Col)`
     text-overflow: ellipsis;
     margin-bottom: 0;
   }
-  > div.row > div.col-1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    svg {
-      font-size: 1.3rem;
+  > div.row {
+    > div.col-11 > p.title {
+      font-weight: 600;
+    }
+    > div.col-1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      svg {
+        font-size: 1.3rem;
+        :hover {
+          cursor: pointer;
+        }
+      }
     }
   }
   > div.row:first-of-type {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.03);
   }
 `;
 
