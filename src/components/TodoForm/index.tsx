@@ -1,5 +1,7 @@
 import axios from "axios";
-import React, { ChangeEvent, FormEvent, SetStateAction, useState } from "react";
+import React, { FormEvent, SetStateAction, useEffect, useState } from "react";
+import Col from "react-bootstrap/esm/Col";
+import Row from "react-bootstrap/esm/Row";
 import {
   isError,
   onChangeFunction,
@@ -7,6 +9,7 @@ import {
   TodoInput,
 } from "../../interfaces/todo.interfaces";
 import InputForm from "./InputForm";
+import { ListStats } from "./styles";
 
 interface Props {
   todos: Todo[];
@@ -21,6 +24,14 @@ const initialTodoInput = {
 const TodoForm = (props: Props) => {
   const { todos, setTodos } = props;
   const [input, setInput] = useState<TodoInput>(initialTodoInput);
+  const [completeCount, setCompleteCount] = useState(0);
+
+  useEffect(() => {
+    if (todos.length > 0) {
+      let completedTodos = todos.filter((todo) => todo.isCompleted === true);
+      setCompleteCount(completedTodos.length);
+    }
+  }, [todos]);
 
   const handleOnChange: onChangeFunction = (event) => {
     const { value, name } = event.target;
@@ -51,12 +62,28 @@ const TodoForm = (props: Props) => {
     return { isError: "noData" };
   };
   return (
-    <InputForm
-      input={input}
-      handleSubmitCreate={handleSubmit}
-      handleOnChange={handleOnChange}
-      handleCheckBox={handleCheckBox}
-    />
+    <>
+      <InputForm
+        input={input}
+        handleSubmitCreate={handleSubmit}
+        handleOnChange={handleOnChange}
+        handleCheckBox={handleCheckBox}
+      />
+      {todos.length > 0 && (
+        <ListStats>
+          <Row>
+            <Col>Total</Col>
+            <Col>Complete</Col>
+            <Col>Pending</Col>
+          </Row>
+          <Row>
+            <Col>{todos.length}</Col>
+            <Col>{completeCount}</Col>
+            <Col>{todos.length - completeCount}</Col>
+          </Row>
+        </ListStats>
+      )}
+    </>
   );
 };
 
