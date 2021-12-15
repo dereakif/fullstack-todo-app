@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# Fullstack Todo App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A NodeJs application which uses MongoDB to store the to do items.
+CRUD operations are essential to app development. In a similar vein, REST, is necessary for website development.
 
-## Available Scripts
+## Techincal Specifications
 
-In the project directory, you can run:
+- The Backend is a REST API built with ExpressJs and Typescript.
+- MongoDB is used as the NoSQL Database along with ExpressJs in the backend Rest API. Mongoose has also been used along with MongoDB in the database layer.
+- The Frontend is built using ReactJs and Typescript.
 
-### `npm start`
+## Project Specifications
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- User can Create a new item to their to do list .
+- User can Read their to do list.
+- User can Update any to do item.
+- User can Delete any to do item.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Requirements
 
-### `npm test`
+- Express 4.x
+- MongoDB 5.x
+- Mongoose 6.x
+- Node 14.x
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+Clone the repository and Run the following commands in the terminal:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `npm run install_all` (This will install the server's and the client's dependency packages)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `npm dev` (This will start both the client and the server with `ts-node-dev`, which will look for the changes in the files and restart the server every time)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Also you can start the app in separate terminals:
 
-### `npm run eject`
+- `npm run start` (This will start the Frontend React application for Dev Environment)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- `cd server` and then
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `npm run start` to start the server with `ts-node-dev`.
