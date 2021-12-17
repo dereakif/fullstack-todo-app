@@ -81,6 +81,27 @@ export const StyledForm = styled(Form)<SCProps>`
     }
   }
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  ${(props) =>
+    props.errorForInput &&
+    css`
+      background-color: #673767;
+      transition: all 0.5s ease-in-out;
+      @keyframes leaves {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.03);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      :not(:hover) {
+        animation: leaves 2s ease-in-out infinite alternate;
+        -webkit-animation: leaves 2s ease-in-out infinite alternate;
+      }
+    `};
 `;
 
 export const StyledSubmitContainer = styled.div<SCProps>`
@@ -102,7 +123,16 @@ export const StyledSubmitContainer = styled.div<SCProps>`
     `};
 `;
 
-export const ListStats = styled.p`
+export const StyledError = styled.p`
+  font-size: large;
+  font-weight: 800;
+  color: white;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  text-align: center;
+`;
+
+export const ListStats = styled.div`
   padding: 1rem;
   font-style: italic;
   color: whitesmoke;
