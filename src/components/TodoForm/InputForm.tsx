@@ -4,7 +4,12 @@ import {
   Todo,
   TodoInput,
 } from "../../interfaces/todo.interfaces";
-import { StyledButton, StyledForm, StyledSubmitContainer } from "./styles";
+import {
+  StyledButton,
+  StyledError,
+  StyledForm,
+  StyledSubmitContainer,
+} from "./styles";
 
 interface Props {
   handleOnChange: onChangeFunction;
@@ -13,6 +18,7 @@ interface Props {
   handleSubmitCreate?: onSubmitFunction;
   handleSubmitEdit?: onSubmitFunction;
   index?: number;
+  errorForInput?: string;
 }
 
 const InputForm = (props: Props) => {
@@ -23,10 +29,15 @@ const InputForm = (props: Props) => {
     handleSubmitCreate,
     handleSubmitEdit,
     index,
+    errorForInput,
   } = props;
 
   return (
-    <StyledForm index={index} onSubmit={handleSubmitEdit || handleSubmitCreate}>
+    <StyledForm
+      errorForInput={errorForInput}
+      index={index}
+      onSubmit={handleSubmitEdit || handleSubmitCreate}
+    >
       <StyledForm.Group className="mb-3" controlId="title">
         <StyledForm.Label>Todo Title</StyledForm.Label>
         <StyledForm.Control
@@ -64,6 +75,7 @@ const InputForm = (props: Props) => {
             {handleSubmitEdit ? "Done" : "Submit"}
           </StyledButton>
         </StyledSubmitContainer>
+        {errorForInput && <StyledError>Some error accrued!</StyledError>}
       </StyledForm.Group>
     </StyledForm>
   );
