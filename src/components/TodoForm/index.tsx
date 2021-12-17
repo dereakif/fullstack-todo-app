@@ -3,7 +3,6 @@ import React, { FormEvent, SetStateAction, useEffect, useState } from "react";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import {
-  isError,
   onChangeFunction,
   Todo,
   TodoInput,
@@ -24,6 +23,7 @@ const initialTodoInput = {
 const TodoForm = (props: Props) => {
   const { todos, setTodos } = props;
   const [input, setInput] = useState<TodoInput>(initialTodoInput);
+  const [errorForInput, setErrorForInput] = useState("");
   const [completeCount, setCompleteCount] = useState(0);
 
   useEffect(() => {
@@ -44,26 +44,31 @@ const TodoForm = (props: Props) => {
     setInput((prev) => ({ ...prev, isCompleted: checked }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): isError => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmiedTitle: string = input.title.trim();
     const trimmiedDescription: string = input.description.trim();
     if (!trimmiedTitle || !trimmiedDescription) {
-      return { isError: "invalidInput" };
+      setErrorForInput("invalidInput");
     }
-    axios.post<Todo>("http://localhost:3001/api/todo", input).then((res) => {
-      const { data } = res;
-      if (data) {
-        setTodos((prev) => [...prev, data]);
-        setInput(initialTodoInput);
-        return { isError: "" };
-      }
-    });
-    return { isError: "noData" };
+    axios
+      .post<Todo>("http://localhost:3001/api/todo", { input: "asd" })
+      .then((res) => {
+        const { data } = res;
+        if (data) {
+          setTodos((prev) => [...prev, data]);
+          setInput(initialTodoInput);
+          setErrorForInput("");
+        }
+      })
+      .catch((e) => {
+        setErrorForInput(`${e.response.data.error.message}`);
+      });
   };
   return (
     <>
       <InputForm
+        errorForInput={errorForInput}
         input={input}
         handleSubmitCreate={handleSubmit}
         handleOnChange={handleOnChange}
