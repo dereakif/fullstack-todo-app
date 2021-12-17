@@ -19,4 +19,4 @@ export type isError = {
 
 export type onChangeFunction = (event: ChangeEvent<HTMLInputElement>) => void;
 
-export type onSubmitFunction = (event: FormEvent<HTMLFormElement>) => isError;
+export type onSubmitFunction = (event: FormEvent<HTMLFormElement>) => void;
