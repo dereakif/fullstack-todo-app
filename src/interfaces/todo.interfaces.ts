@@ -15,6 +15,12 @@ export type Todo = {
   updatedAt: Date;
 };
 
+export type TodoState = {
+  loading: boolean;
+  data: Todo[];
+  error: string;
+};
+
 export type isError = {
   isError: string;
 };
