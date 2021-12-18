@@ -1,3 +1,4 @@
+import ReactTooltip from "react-tooltip";
 import {
   onChangeFunction,
   onSubmitFunction,
@@ -34,8 +35,8 @@ const InputForm = (props: Props) => {
 
   return (
     <StyledForm
-      errorForInput={errorForInput}
-      index={index}
+      $errorForInput={errorForInput}
+      $index={index}
       onSubmit={handleSubmitEdit || handleSubmitCreate}
     >
       <StyledForm.Group className="mb-3" controlId="title">
@@ -75,7 +76,18 @@ const InputForm = (props: Props) => {
             {handleSubmitEdit ? "Done" : "Submit"}
           </StyledButton>
         </StyledSubmitContainer>
-        {errorForInput && <StyledError>Some error accrued!</StyledError>}
+        {errorForInput && (
+          <>
+            <StyledError data-tip data-for="error">
+              Some error accrued!
+            </StyledError>
+            <ReactTooltip place="bottom" type="dark" effect="solid" id="error">
+              {errorForInput === "invalidInput"
+                ? "Please enter valid title and description"
+                : errorForInput}
+            </ReactTooltip>
+          </>
+        )}
       </StyledForm.Group>
     </StyledForm>
   );
