@@ -9,5 +9,5 @@ export const errorHandler = (
   let message;
   if (error instanceof Error) message = error.message;
   else message = String(error);
-  res.status(500).send(message);
+  res.status(500).send({ message });
 };
