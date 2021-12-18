@@ -33,6 +33,10 @@ const TodoForm = (props: Props) => {
     }
   }, [todos]);
 
+  useEffect(() => {
+    setErrorForInput("");
+  }, [input]);
+
   const handleOnChange: onChangeFunction = (event) => {
     const { value, name } = event.target;
     if (!name) return;
@@ -46,19 +50,19 @@ const TodoForm = (props: Props) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const trimmiedTitle: string = input.title.trim();
-    const trimmiedDescription: string = input.description.trim();
-    if (!trimmiedTitle || !trimmiedDescription) {
-      setErrorForInput("invalidInput");
+    const trimmedTitle: string = input.title.trim();
+    const trimmedDescription: string = input.description.trim();
+    if (!trimmedTitle || !trimmedDescription) {
+      return setErrorForInput("invalidInput");
     }
     axios
-      .post<Todo>("http://localhost:3001/api/todo", { input: "asd" })
+      .post<Todo>("http://localhost:3001/api/todo", input)
       .then((res) => {
         const { data } = res;
         if (data) {
           setTodos((prev) => [...prev, data]);
           setInput(initialTodoInput);
-          setErrorForInput("");
+          errorForInput && setErrorForInput("");
         }
       })
       .catch((e) => {
