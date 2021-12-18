@@ -14,6 +14,9 @@ export const StyledTodoList = styled.div`
 export const TitleContainer = styled(Col)`
   padding: 0 1rem;
   background-color: rgb(55, 59, 98);
+  :hover {
+    background-color: #7166a9;
+  }
   border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
