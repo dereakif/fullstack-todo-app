@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Col from "react-bootstrap/esm/Col";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
-import "./App.css";
+import "./App.scss";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import { Todo } from "./interfaces/todo.interfaces";
