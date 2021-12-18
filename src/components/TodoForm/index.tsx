@@ -6,13 +6,14 @@ import {
   onChangeFunction,
   Todo,
   TodoInput,
+  TodoState,
 } from "../../interfaces/todo.interfaces";
 import InputForm from "./InputForm";
 import { ListStats } from "./styles";
 
 interface Props {
-  todos: Todo[];
-  setTodos: React.Dispatch<SetStateAction<Todo[]>>;
+  todoState: TodoState;
+  setTodoState: React.Dispatch<SetStateAction<TodoState>>;
 }
 
 const initialTodoInput = {
@@ -21,17 +22,19 @@ const initialTodoInput = {
   isCompleted: false,
 };
 const TodoForm = (props: Props) => {
-  const { todos, setTodos } = props;
+  const { todoState, setTodoState } = props;
   const [input, setInput] = useState<TodoInput>(initialTodoInput);
   const [errorForInput, setErrorForInput] = useState("");
   const [completeCount, setCompleteCount] = useState(0);
 
   useEffect(() => {
-    if (todos.length > 0) {
-      let completedTodos = todos.filter((todo) => todo.isCompleted === true);
+    if (todoState.data.length > 0) {
+      let completedTodos = todoState.data.filter(
+        (todo) => todo.isCompleted === true
+      );
       setCompleteCount(completedTodos.length);
     }
-  }, [todos]);
+  }, [todoState.data]);
 
   useEffect(() => {
     setErrorForInput("");
@@ -55,18 +58,22 @@ const TodoForm = (props: Props) => {
     if (!trimmedTitle || !trimmedDescription) {
       return setErrorForInput("invalidInput");
     }
+    setTodoState((prev) => ({ ...prev, loading: true }));
     axios
       .post<Todo>("http://localhost:3001/api/todo", input)
       .then((res) => {
         const { data } = res;
         if (data) {
-          setTodos((prev) => [...prev, data]);
+          setTodoState((prev) => ({ ...prev, data: [...prev.data, data] }));
           setInput(initialTodoInput);
           errorForInput && setErrorForInput("");
         }
       })
       .catch((e) => {
         setErrorForInput(`${e.response.data.message}`);
+      })
+      .finally(() => {
+        setTodoState((prev) => ({ ...prev, loading: false }));
       });
   };
   return (
@@ -78,7 +85,7 @@ const TodoForm = (props: Props) => {
         handleOnChange={handleOnChange}
         handleCheckBox={handleCheckBox}
       />
-      {todos.length > 0 && (
+      {todoState.data.length > 0 && (
         <ListStats>
           <Row>
             <Col>Total</Col>
@@ -86,9 +93,9 @@ const TodoForm = (props: Props) => {
             <Col>Pending</Col>
           </Row>
           <Row>
-            <Col>{todos.length}</Col>
+            <Col>{todoState.data.length}</Col>
             <Col>{completeCount}</Col>
-            <Col>{todos.length - completeCount}</Col>
+            <Col>{todoState.data.length - completeCount}</Col>
           </Row>
         </ListStats>
       )}
