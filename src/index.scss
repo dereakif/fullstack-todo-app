@@ -1,5 +1,8 @@
-body > #root > div {
+body > #root {
   height: 100vh;
+  > div.App {
+    height: 100%;
+  }
 }
 body {
   margin: 0;
