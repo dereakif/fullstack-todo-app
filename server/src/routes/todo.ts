@@ -22,7 +22,8 @@ router.post(
     try {
       const todo = Todo.build({ title, description, isCompleted });
       await todo.save();
-      return res.status(201).send(todo);
+      const todoToReturn = await Todo.findById(todo._id);
+      return res.status(201).send(todoToReturn);
     } catch (error: unknown) {
       next(error);
     }
@@ -34,11 +35,11 @@ router.put(
   async (req: Request, res: Response, next: NextFunction) => {
     const { title, description, isCompleted, _id } = req.body;
     try {
-      await Todo.updateOne(
+      const todo = await Todo.findOneAndUpdate(
         { _id },
-        { $set: { title, description, isCompleted } }
+        { $set: { title, description, isCompleted } },
+        { new: true }
       );
-      const todo = await Todo.findOne({ _id });
       return res.status(201).send(todo);
     } catch (error) {
       next(error);
@@ -51,7 +52,7 @@ router.delete(
   async (req: Request, res: Response, next: NextFunction) => {
     const { _id } = req.body;
     try {
-      const result = await Todo.deleteOne({ _id });
+      const result = await Todo.findOneAndDelete({ _id });
       return res.status(201).send(result);
     } catch (error) {
       next(error);
