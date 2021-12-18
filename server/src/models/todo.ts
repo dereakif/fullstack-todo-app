@@ -16,17 +16,22 @@ interface TodoDoc extends mongoose.Document {
   isCompleted: boolean;
 }
 
-const todoSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
+const todoSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    isCompleted: { type: Boolean, required: true },
   },
-  description: {
-    type: String,
-    required: true,
-  },
-  isCompleted: { type: Boolean, required: true },
-});
+  {
+    timestamps: true,
+  }
+);
 
 todoSchema.statics.build = (attr: ITodo) => {
   return new Todo(attr);
