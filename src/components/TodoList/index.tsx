@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { SetStateAction, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,14 +30,18 @@ const TodoList = (props: Props) => {
   const [selectedTodo, setSelectedTodo] = useState<Todo>(initialTodoInput);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
-  useEffect(() => {
+  const fetchTodos = useCallback(() => {
     axios.get("http://localhost:3001/api/todo").then((res) => {
       const { data } = res;
       if (data) {
         setTodos(data);
       }
     });
-  }, []);
+  }, [setTodos]);
+
+  useEffect(() => {
+    fetchTodos();
+  }, [fetchTodos]);
 
   const selectTodo = (todoId: string) => {
     const index = todos.findIndex((todo) => todo._id === todoId);
