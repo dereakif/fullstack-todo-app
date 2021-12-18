@@ -18,6 +18,7 @@ export const StyledButton = styled.button<SCProps>`
 
   :hover {
     cursor: pointer;
+    background-color: #7166a9;
   }
   :active {
     transform: scale(0.98);
@@ -59,7 +60,7 @@ export const StyledForm = styled(Form)<SCProps>`
   padding: 1rem;
   background-color: rgb(55, 59, 98);
   ${(props) =>
-    props.index === 0 &&
+    props.$index === 0 &&
     css`
       margin-bottom: 1rem;
     `};
@@ -82,7 +83,7 @@ export const StyledForm = styled(Form)<SCProps>`
   }
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   ${(props) =>
-    props.errorForInput &&
+    props.$errorForInput &&
     css`
       background-color: #673767;
       transition: all 0.5s ease-in-out;
@@ -102,6 +103,9 @@ export const StyledForm = styled(Form)<SCProps>`
         -webkit-animation: leaves 2s ease-in-out infinite alternate;
       }
     `};
+  #error {
+    width: 400px;
+  }
 `;
 
 export const StyledSubmitContainer = styled.div<SCProps>`
@@ -130,17 +134,26 @@ export const StyledError = styled.p`
   margin-top: 1rem;
   margin-bottom: 0;
   text-align: center;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const ListStats = styled.div`
   padding: 1rem;
   font-style: italic;
   color: whitesmoke;
+  background-color: #7166a9;
   text-align: center;
   div.row:last-of-type {
     margin-top: 0.5rem;
   }
-  border: 1px solid silver;
+  div.row:first-of-type {
+    > div.col {
+      font-weight: 600;
+      text-decoration: underline;
+    }
+  }
   border-radius: 0.25rem;
   margin-top: 1rem;
 `;
