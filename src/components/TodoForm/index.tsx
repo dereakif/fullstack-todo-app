@@ -62,7 +62,7 @@ const TodoForm = (props: Props) => {
         }
       })
       .catch((e) => {
-        setErrorForInput(`${e.response.data.error.message}`);
+        setErrorForInput(`${e.response.data.message}`);
       });
   };
   return (
