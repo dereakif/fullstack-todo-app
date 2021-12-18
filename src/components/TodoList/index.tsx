@@ -11,6 +11,7 @@ import InputForm from "../TodoForm/InputForm";
 import { StyledTodoList, TitleContainer, TodoContainer } from "./styles";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
+import { timeAgo } from "../../modules/dates";
 
 interface Props {
   todos: Todo[];
@@ -21,6 +22,8 @@ const initialTodoInput = {
   description: "",
   _id: "",
   isCompleted: false,
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 const TodoList = (props: Props) => {
   const { todos, setTodos } = props;
@@ -133,6 +136,14 @@ const TodoList = (props: Props) => {
                     icon={faTrashAlt}
                     onClick={() => deleteTodo(todo._id)}
                   />
+                </Col>
+              </Row>
+              <Row className="mt-3 fst-italic fs-6 fw-light">
+                <Col xs={6}>
+                  <p className="mt-4">{timeAgo(todo.createdAt)}</p>
+                </Col>
+                <Col xs={6}>
+                  <p className="text-end mt-4">{timeAgo(todo.updatedAt)}</p>
                 </Col>
               </Row>
             </TitleContainer>
