@@ -18,7 +18,7 @@ export const StyledButton = styled.button<SCProps>`
 
   :hover {
     cursor: pointer;
-    background-color: #7166a9;
+    background-color: #463e6f;
   }
   :active {
     transform: scale(0.98);
@@ -163,4 +163,20 @@ export const ListStats = styled.div`
   }
   border-radius: 0.25rem;
   margin-top: 1rem;
+`;
+
+export const ControlButtons = styled.div`
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  color: whitesmoke;
+  background-color: #26223c;
+  /* text-align: center; */
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+  button {
+    :hover {
+      background-color: #363055;
+    }
+  }
 `;
