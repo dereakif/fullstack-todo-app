@@ -14,6 +14,7 @@ import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import { timeAgo } from "../../modules/dates";
 import Loading from "../Loading";
+import Blank from "../Blank";
 
 interface Props {
   todoState: TodoState;
@@ -124,7 +125,7 @@ const TodoList = (props: Props) => {
   };
 
   if (todoState.data?.length === 0) {
-    return <div>There is no list to display...</div>;
+    return <Blank />;
   }
 
   if (todoState.loading) {
