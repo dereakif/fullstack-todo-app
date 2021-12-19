@@ -119,6 +119,10 @@ const TodoList = (props: Props) => {
       });
   };
 
+  const handleCloseEditor = () => {
+    setSelectedTodo(initialTodoInput);
+  };
+
   if (todoState.data?.length === 0) {
     return <div>There is no list to display...</div>;
   }
@@ -138,6 +142,7 @@ const TodoList = (props: Props) => {
             handleCheckBox={handleCheckBox}
             handleOnChange={handleOnChange}
             handleSubmitEdit={handleTodoEdit}
+            handleCloseEditor={handleCloseEditor}
           />
         ) : (
           <TodoContainer key={todo._id}>
