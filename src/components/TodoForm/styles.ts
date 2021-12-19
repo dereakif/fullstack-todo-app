@@ -129,6 +129,9 @@ export const StyledSubmitContainer = styled.div<SCProps>`
         border-color: palevioletred;
       }
     `};
+  .form-check {
+    margin: auto 0;
+  }
 `;
 
 export const StyledError = styled.p`
