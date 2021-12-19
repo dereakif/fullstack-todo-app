@@ -170,10 +170,12 @@ const TodoList = (props: Props) => {
               </Row>
               <Row className="mt-3 fst-italic fs-6 fw-light">
                 <Col xs={6}>
-                  <p className="mt-4">{timeAgo(todo.createdAt)}</p>
+                  <p className="mt-4">Created: {timeAgo(todo.createdAt)}</p>
                 </Col>
                 <Col xs={6}>
-                  <p className="text-end mt-4">{timeAgo(todo.updatedAt)}</p>
+                  <p className="text-end mt-4">
+                    Updated: {timeAgo(todo.updatedAt)}
+                  </p>
                 </Col>
               </Row>
             </TitleContainer>
