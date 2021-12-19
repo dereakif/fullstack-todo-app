@@ -10,7 +10,7 @@ import {
 } from "../../interfaces/todo.interfaces";
 import Loading from "../Loading";
 import InputForm from "./InputForm";
-import { ListStats } from "./styles";
+import { ControlButtons, ListStats, StyledButton } from "./styles";
 
 interface Props {
   todoState: TodoState;
@@ -78,6 +78,46 @@ const TodoForm = (props: Props) => {
       });
   };
 
+  const handleDeleteAll = () => {
+    if (!window.confirm("Are you sure? This is permanent!")) {
+      return;
+    }
+    setTodoState((prev) => ({ ...prev, loading: true }));
+    axios
+      .delete<any>("http://localhost:3001/api/allTodos")
+      .then((res) => {
+        const { data } = res;
+        if (data.deletedCount === todoState.data.length) {
+          setTodoState((prev) => ({ ...prev, data: [] }));
+        }
+      })
+      .finally(() => {
+        setTodoState((prev) => ({ ...prev, loading: false }));
+      });
+  };
+
+  const handleCompleteAll = () => {
+    if (!window.confirm("Are you sure to complete all?")) {
+      return;
+    }
+    setTodoState((prev) => ({ ...prev, loading: true }));
+    axios
+      .put<any>("http://localhost:3001/api/allTodos")
+      .then((res) => {
+        const { data } = res;
+        if (data.modifiedCount === todoState.data.length) {
+          const newData = todoState.data.map((todo) => ({
+            ...todo,
+            isCompleted: true,
+          }));
+
+          setTodoState((prev) => ({ ...prev, data: newData }));
+        }
+      })
+      .finally(() => {
+        setTodoState((prev) => ({ ...prev, loading: false }));
+      });
+  };
   return (
     <>
       <InputForm
@@ -91,18 +131,26 @@ const TodoForm = (props: Props) => {
         <Loading />
       ) : (
         todoState.data.length > 0 && (
-          <ListStats>
-            <Row>
-              <Col>Total</Col>
-              <Col>Complete</Col>
-              <Col>Pending</Col>
-            </Row>
-            <Row>
-              <Col>{todoState.data.length}</Col>
-              <Col>{completeCount}</Col>
-              <Col>{todoState.data.length - completeCount}</Col>
-            </Row>
-          </ListStats>
+          <>
+            <ControlButtons>
+              <StyledButton onClick={handleCompleteAll}>
+                Complete All
+              </StyledButton>
+              <StyledButton onClick={handleDeleteAll}>Delete All</StyledButton>
+            </ControlButtons>
+            <ListStats>
+              <Row>
+                <Col>Total</Col>
+                <Col>Complete</Col>
+                <Col>Pending</Col>
+              </Row>
+              <Row>
+                <Col>{todoState.data.length}</Col>
+                <Col>{completeCount}</Col>
+                <Col>{todoState.data.length - completeCount}</Col>
+              </Row>
+            </ListStats>
+          </>
         )
       )}
     </>
