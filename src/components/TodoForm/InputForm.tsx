@@ -7,6 +7,7 @@ import {
 } from "../../interfaces/todo.interfaces";
 import {
   StyledButton,
+  StyledCloseButton,
   StyledError,
   StyledForm,
   StyledSubmitContainer,
@@ -18,6 +19,7 @@ interface Props {
   input: TodoInput | Todo;
   handleSubmitCreate?: onSubmitFunction;
   handleSubmitEdit?: onSubmitFunction;
+  handleCloseEditor?: () => void;
   index?: number;
   errorForInput?: string;
 }
@@ -31,8 +33,8 @@ const InputForm = (props: Props) => {
     handleSubmitEdit,
     index,
     errorForInput,
+    handleCloseEditor,
   } = props;
-
   return (
     <StyledForm
       $errorForInput={errorForInput}
@@ -71,10 +73,16 @@ const InputForm = (props: Props) => {
             name="isCompleted"
             label="Completed"
           />
-
-          <StyledButton type="submit">
-            {handleSubmitEdit ? "Done" : "Submit"}
-          </StyledButton>
+          <div className="d-flex align-items-center">
+            <StyledButton type="submit">
+              {handleSubmitEdit ? "Save" : "Submit"}
+            </StyledButton>
+            {handleSubmitEdit && handleCloseEditor && (
+              <StyledCloseButton type="button" onClick={handleCloseEditor}>
+                Don't save
+              </StyledCloseButton>
+            )}
+          </div>
         </StyledSubmitContainer>
         {errorForInput && (
           <>
