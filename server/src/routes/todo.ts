@@ -60,4 +60,28 @@ router.delete(
   }
 );
 
+router.put(
+  "/api/allTodos",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await Todo.updateMany({}, { $set: { isCompleted: true } });
+      return res.status(201).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.delete(
+  "/api/allTodos",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await Todo.deleteMany({});
+      return res.status(201).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export { router as todoRouter };
