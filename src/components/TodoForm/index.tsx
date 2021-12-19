@@ -8,6 +8,7 @@ import {
   TodoInput,
   TodoState,
 } from "../../interfaces/todo.interfaces";
+import Loading from "../Loading";
 import InputForm from "./InputForm";
 import { ListStats } from "./styles";
 
@@ -76,6 +77,7 @@ const TodoForm = (props: Props) => {
         setTodoState((prev) => ({ ...prev, loading: false }));
       });
   };
+
   return (
     <>
       <InputForm
@@ -85,19 +87,23 @@ const TodoForm = (props: Props) => {
         handleOnChange={handleOnChange}
         handleCheckBox={handleCheckBox}
       />
-      {todoState.data.length > 0 && (
-        <ListStats>
-          <Row>
-            <Col>Total</Col>
-            <Col>Complete</Col>
-            <Col>Pending</Col>
-          </Row>
-          <Row>
-            <Col>{todoState.data.length}</Col>
-            <Col>{completeCount}</Col>
-            <Col>{todoState.data.length - completeCount}</Col>
-          </Row>
-        </ListStats>
+      {todoState.loading ? (
+        <Loading />
+      ) : (
+        todoState.data.length > 0 && (
+          <ListStats>
+            <Row>
+              <Col>Total</Col>
+              <Col>Complete</Col>
+              <Col>Pending</Col>
+            </Row>
+            <Row>
+              <Col>{todoState.data.length}</Col>
+              <Col>{completeCount}</Col>
+              <Col>{todoState.data.length - completeCount}</Col>
+            </Row>
+          </ListStats>
+        )
       )}
     </>
   );
