@@ -32,6 +32,10 @@ export const StyledButton = styled.button<SCProps>`
     `};
 `;
 
+export const StyledCloseButton = styled(StyledButton)`
+  background-color: #673767;
+`;
+
 export const StyledInput = styled.input`
   border: 1px solid black;
   border-radius: 1px;
