@@ -10,7 +10,15 @@ import {
 } from "../../interfaces/todo.interfaces";
 import Loading from "../Loading";
 import InputForm from "./InputForm";
-import { ControlButtons, ListStats, StyledButton } from "./styles";
+import {
+  ControlButtons,
+  DatePickerContainer,
+  ListStats,
+  StyledButton,
+} from "./styles";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import dayjs from "dayjs";
 
 interface Props {
   todoState: TodoState;
@@ -27,6 +35,7 @@ const TodoForm = (props: Props) => {
   const [input, setInput] = useState<TodoInput>(initialTodoInput);
   const [errorForInput, setErrorForInput] = useState("");
   const [completeCount, setCompleteCount] = useState(0);
+  const [startDate, setStartDate] = useState<Date>(new Date());
 
   useEffect(() => {
     if (todoState.data.length > 0) {
@@ -118,6 +127,21 @@ const TodoForm = (props: Props) => {
         setTodoState((prev) => ({ ...prev, loading: false }));
       });
   };
+
+  const handleFilterByDate = () => {
+    const isoDate = dayjs(startDate).startOf("date").toISOString();
+    setTodoState((prev) => ({ ...prev, loading: true }));
+    axios
+      .get<Todo[]>(`http://localhost:3001/api/todo/${isoDate}`)
+      .then((res) => {
+        const { data } = res;
+        setTodoState((prev) => ({ ...prev, data }));
+      })
+      .finally(() => {
+        setTodoState((prev) => ({ ...prev, loading: false }));
+      });
+  };
+
   return (
     <>
       <InputForm
@@ -127,6 +151,13 @@ const TodoForm = (props: Props) => {
         handleOnChange={handleOnChange}
         handleCheckBox={handleCheckBox}
       />
+      <DatePickerContainer>
+        <DatePicker
+          selected={startDate}
+          onChange={(date: Date) => setStartDate(date)}
+        />
+        <StyledButton onClick={handleFilterByDate}>Filter</StyledButton>
+      </DatePickerContainer>
       {todoState.loading ? (
         <Loading />
       ) : (
