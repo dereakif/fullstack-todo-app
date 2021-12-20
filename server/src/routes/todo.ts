@@ -84,4 +84,17 @@ router.delete(
   }
 );
 
+router.get(
+  "/api/todo/:isoDate",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const isoDate = req.params.isoDate;
+    try {
+      const todos = await Todo.find({ createdAt: { $gte: isoDate } });
+      return res.status(201).send(todos);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export { router as todoRouter };
