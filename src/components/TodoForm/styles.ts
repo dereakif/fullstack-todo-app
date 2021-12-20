@@ -180,3 +180,12 @@ export const ControlButtons = styled.div`
     }
   }
 `;
+
+export const DatePickerContainer = styled(ControlButtons)`
+  align-items: center;
+  .react-datepicker-wrapper {
+    > div > input {
+      width: 150px;
+    }
+  }
+`;
