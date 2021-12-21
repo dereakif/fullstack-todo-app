@@ -1,8 +1,6 @@
-html,
-body,
-#root,
-.App {
-  height: 100%;
+#root {
+  min-height: 100vh;
+  background: #191919;
 }
 body {
   margin: 0;
