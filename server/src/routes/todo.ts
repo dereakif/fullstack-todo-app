@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Todo } from "../models/todo";
+import dayjs from "dayjs";
 
 const router = express.Router();
 
@@ -88,8 +89,12 @@ router.get(
   "/api/todo/:isoDate",
   async (req: Request, res: Response, next: NextFunction) => {
     const isoDate = req.params.isoDate;
+    const startDate = dayjs(isoDate).startOf("date").toISOString();
+    const endDate = dayjs(isoDate).endOf("date").toISOString();
     try {
-      const todos = await Todo.find({ createdAt: { $gte: isoDate } });
+      const todos = await Todo.find({
+        createdAt: { $gte: startDate, $lt: endDate },
+      });
       return res.status(201).send(todos);
     } catch (error) {
       next(error);
