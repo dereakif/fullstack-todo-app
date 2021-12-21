@@ -176,8 +176,10 @@ const TodoForm = (props: Props) => {
           selected={startDate}
           onChange={(date: Date) => setStartDate(date)}
         />
-        <StyledButton onClick={handleFilterByDate}>Filter</StyledButton>
-        <StyledButton onClick={fetchTodos}>Reset</StyledButton>
+        <div className="filter-button-container">
+          <StyledButton onClick={handleFilterByDate}>Filter</StyledButton>
+          <StyledButton onClick={fetchTodos}>Reset</StyledButton>
+        </div>
       </DatePickerContainer>
       {todoState.loading ? (
         <Loading />

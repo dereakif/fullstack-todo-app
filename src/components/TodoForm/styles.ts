@@ -62,7 +62,7 @@ export const StyledForm = styled(Form)<SCProps>`
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  background-color: rgb(55, 59, 98);
+  background-color: ${(props) => props.theme.colors.primary};
   ${(props) =>
     props.$index === 0 &&
     css`
@@ -81,7 +81,7 @@ export const StyledForm = styled(Form)<SCProps>`
       background-color: #f8f9fa;
     }
     > label.form-label {
-      color: whitesmoke;
+      color: ${(props) => props.theme.colors.fontColor};
       font-weight: 600;
     }
   }
@@ -171,7 +171,6 @@ export const ControlButtons = styled.div`
   padding: 1rem;
   color: whitesmoke;
   background-color: #26223c;
-  /* text-align: center; */
   border-radius: 0.25rem;
   margin-top: 1rem;
   button {
@@ -184,9 +183,21 @@ export const ControlButtons = styled.div`
 export const DatePickerContainer = styled(ControlButtons)`
   align-items: center;
   .react-datepicker-wrapper {
+    width: unset;
     > div > input {
       width: 110px;
       text-align: center;
+    }
+  }
+
+  @media (max-width: 1199px) and (min-width: 768px) {
+    .react-datepicker__input-container {
+      display: grid;
+      place-items: center;
+    }
+    flex-direction: column;
+    .filter-button-container {
+      margin-top: 1rem;
     }
   }
 `;
